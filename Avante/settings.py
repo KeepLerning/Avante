@@ -27,17 +27,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Avante',
     'Akun',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'Produk',
-    'Pelanggan',
     'Pengiriman',
     'Ulasan',
-    
+    'cart',
+    'Produk.templatetags',
 ]
 
 SITE_ID = 1
@@ -164,8 +163,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR  /'static',
+    BASE_DIR /'static',
     BASE_DIR /'Akun/static',
+    BASE_DIR /'Produk/static',
+    BASE_DIR /'Pengiriman/static',
+    BASE_DIR /'Ulasan/static',
     
 
 ]
@@ -177,6 +179,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'Akun.CustomUser'
 
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = 'cls/'
 
 

@@ -1,0 +1,43 @@
+{% load cart_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Keranjang Belanja</title>
+</head>
+<body>
+    <h1>Keranjang Belanja</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama Produk</th>
+                <th>Harga</th>
+                <th>Jumlah</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in produk %}
+                <tr>
+                    <td>{{ item.product.nama_produk }}</td>
+                    <td>Rp {{ item.product.harga_produk }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>Rp {{ item.product.harga_produk * item.quantity }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td>Rp {{ cart.get_total }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <a href="{% url 'HomeProduk' %}" class="btn btn-primary">Lanjut Belanja</a>
+    {% comment %} <a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a> {% endcomment %}
+</body>
+</html>
+

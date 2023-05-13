@@ -10,7 +10,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('Produk', '0002_auto_20230509_1706'),
-        ('Pelanggan', '0001_initial'),
     ]
 
     operations = [
@@ -21,7 +20,7 @@ class Migration(migrations.Migration):
                 ('isi_ulasan', models.TextField()),
                 ('bintang_ulasan', models.IntegerField()),
                 ('Produk', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Produk.produk')),
-                ('pelanggan', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Pelanggan.pelanggan')),
+                
             ],
         ),
     ]

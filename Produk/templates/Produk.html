@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Produk</title>
+</head>
+<body>
+    <h1>Produk</h1>
+    <h2>Kategori Produk</h2>
+    <ul>
+    {% for kategori in kategori_produk %}
+        <li>{{ kategori }}</li>
+    {% empty %}
+        <li>Tidak ada kategori produk.</li>
+    {% endfor %}
+    </ul>
+
+    <h1>Daftar Produk</h1>
+    {% if produk %}
+        {% for item in produk %}
+        <h3>{{ item.nama_produk }}</h3>
+        <p>{{ item.deskripsi_produk }}</p>
+        <p>Harga: Rp {{ item.harga_produk }}</p>
+        <form action="{% url 'keranjang_belanja' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="produk_id" value="{{ item.id }}">
+            <a href="{% url 'checkout' produk_id=item.id %}" class="btn btn-success">Checkout</a>
+            <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
+        </form>
+        {% endfor %}
+    {% else %}
+        <p>Tidak ada produk</p>
+    {% endif %}
+
+    <h2>Kategori Produk</h2>
+    <ul>
+    {% for kategori in kategori_produk %}
+        <li>kemeja</li>
+    {% empty %}
+        <li>Tidak ada kategori produk.</li>
+    {% endfor %}
+    </ul>
+    <h1>Daftar Produk</h1>
+    {% if produk %}
+        {% for item in produk %}
+        <h3>{{ item.nama_produk }}</h3>
+        <p>{{ item.deskripsi_produk }}</p>
+        <p>Harga: Rp {{ item.harga_produk }}</p>
+        <form action="{% url 'keranjang_belanja' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="produk_id" value="{{ item.id }}">
+            <a href="{% url 'checkout' produk_id=item.id %}" class="btn btn-success">Checkout</a>
+            <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
+        </form>
+        {% endfor %}
+    {% else %}
+        <p>Tidak ada produk</p>
+    {% endif %}
+
+    </ul>
+</body>
+</html>
