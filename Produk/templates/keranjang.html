@@ -1,43 +1,121 @@
-{% load cart_tags %}
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Keranjang Belanja</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
 </head>
 <body>
-    <h1>Keranjang Belanja</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nama Produk</th>
-                <th>Harga</th>
-                <th>Jumlah</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in produk %}
-                <tr>
-                    <td>{{ item.product.nama_produk }}</td>
-                    <td>Rp {{ item.product.harga_produk }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>Rp {{ item.product.harga_produk * item.quantity }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3">Total</td>
-                <td>Rp {{ cart.get_total }}</td>
-            </tr>
-        </tfoot>
-    </table>
+<h1>Keranjang Belanja</h1>
+<h2>Daftar Produk:</h2>
+<ul>
+    {% for produk in daftar_produk %}
+        <li>
+            <h3>{{ produk.nama_produk }}</h3>
+            <p>Harga: {{ produk.harga }}</p>
+            <p>Jumlah: {{ produk.jumlah }}</p>
+            <p>Subtotal: {{ produk.subtotal }}</p>
+            <button class="tambah-qty" data-id="{{ produk.id }}">Tambah</button>
+            <button class="kurang-qty" data-id="{{ produk.id }}">Kurang</button>
+            <button class="hapus-produk" data-id="{{ produk.id }}">Hapus</button>
+        </li>
+    {% empty %}
+        <li>Tidak ada produk di keranjang.</li>
+    {% endfor %}
+</ul>
+<p>Total Harga: {{ total_harga }}</p>
 
-    <a href="{% url 'HomeProduk' %}" class="btn btn-primary">Lanjut Belanja</a>
-    {% comment %} <a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a> {% endcomment %}
+<button onclick="location.href='{% url 'HomeProduk' %}'">Kembali membeli produk</button>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Get the CSRF token from the cookie
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Function to update the quantity of a product in the shopping cart
+        function updateQuantity(produkId, jumlah) {
+            var csrfToken = getCookie('csrftoken');
+
+            // Buat objek data yang akan dikirimkan
+            var data = {
+                'id': produkId,
+                'jumlah': jumlah,
+                'csrfmiddlewaretoken': csrfToken // Sertakan token CSRF dalam data
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/update_keranjang/', // Ubah URL sesuai dengan URL yang telah didefinisikan pada URL pattern
+                data: data, // Gunakan objek data yang telah dibuat
+                success: function() {
+                    // Refresh halaman keranjang belanja
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {alert('Terjadi kesalahan: ' + error);
+            }
+        });
+    }
+
+    // Event handler untuk tombol tambah
+    $('.tambah-qty').click(function() {
+        var produkId = $(this).data('id');
+        updateQuantity(produkId, 1);
+    });
+
+    // Event handler untuk tombol kurang
+    $('.kurang-qty').click(function() {
+        var produkId = $(this).data('id');
+        updateQuantity(produkId, -1);
+    });
+
+    // Event handler untuk tombol hapus
+    $('.hapus-produk').click(function() {
+        var produkId = $(this).data('id');
+        var csrfToken = getCookie('csrftoken');
+
+        // Buat objek data yang akan dikirimkan
+        var data = {
+            'id': produkId,
+            'csrfmiddlewaretoken': csrfToken // Sertakan token CSRF dalam data
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/hapus_dari_keranjang/', // Ubah URL sesuai dengan URL yang telah didefinisikan pada URL pattern
+            data: data, // Gunakan objek data yang telah dibuat
+            success: function() {
+                // Refresh halaman keranjang belanja
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('Terjadi kesalahan: ' + error);
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
 

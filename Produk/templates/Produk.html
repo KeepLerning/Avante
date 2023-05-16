@@ -6,59 +6,76 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Produk</title>
 </head>
+<title>Halaman Produk</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Get the CSRF token from the cookie
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        $('.tambah-ke-keranjang').click(function() {
+            var produkId = $(this).data('id');
+            var jumlah = 1; // Ubah sesuai dengan jumlah yang diinginkan
+            var csrfToken = getCookie('csrftoken');
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'tambah_ke_keranjang' %}',
+                data: JSON.stringify({ 'id': produkId, 'jumlah': jumlah }),
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRFToken': csrfToken // Include the CSRF token in the request headers
+                },
+                success: function() {
+                    alert('Produk berhasil ditambahkan ke keranjang belanja.');
+                    window.location.href = '{% url 'keranjang_belanja' %}'; // Redirect to shopping cart page
+                },
+                error: function(xhr, status, error) {
+                    alert('Terjadi kesalahan: ' + error);
+                }
+            });
+        });
+    });
+</script>
+
+
+</head>
 <body>
-    <h1>Produk</h1>
-    <h2>Kategori Produk</h2>
+    <h1>Halaman Produk</h1>
+    <h2>Kategori Produk:</h2>
     <ul>
-    {% for kategori in kategori_produk %}
-        <li>{{ kategori }}</li>
-    {% empty %}
-        <li>Tidak ada kategori produk.</li>
-    {% endfor %}
-    </ul>
-
-    <h1>Daftar Produk</h1>
-    {% if produk %}
-        {% for item in produk %}
-        <h3>{{ item.nama_produk }}</h3>
-        <p>{{ item.deskripsi_produk }}</p>
-        <p>Harga: Rp {{ item.harga_produk }}</p>
-        <form action="{% url 'keranjang_belanja' %}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="produk_id" value="{{ item.id }}">
-            <a href="{% url 'checkout' produk_id=item.id %}" class="btn btn-success">Checkout</a>
-            <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
-        </form>
+        {% for kategori in kategori_produk %}
+            <li>{{ kategori }}</li>
+        {% empty %}
+            <li>Tidak ada kategori produk.</li>
         {% endfor %}
-    {% else %}
-        <p>Tidak ada produk</p>
-    {% endif %}
-
-    <h2>Kategori Produk</h2>
+    </ul>
+    <h2>Daftar Produk:</h2>
     <ul>
-    {% for kategori in kategori_produk %}
-        <li>kemeja</li>
-    {% empty %}
-        <li>Tidak ada kategori produk.</li>
-    {% endfor %}
-    </ul>
-    <h1>Daftar Produk</h1>
-    {% if produk %}
-        {% for item in produk %}
-        <h3>{{ item.nama_produk }}</h3>
-        <p>{{ item.deskripsi_produk }}</p>
-        <p>Harga: Rp {{ item.harga_produk }}</p>
-        <form action="{% url 'keranjang_belanja' %}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="produk_id" value="{{ item.id }}">
-            <a href="{% url 'checkout' produk_id=item.id %}" class="btn btn-success">Checkout</a>
-            <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
-        </form>
+        {% for p in produk %}
+            <li>
+                <h3>{{ p.nama_produk }}</h3>
+                <p>Harga: {{ p.harga_produk }}</p>
+                <p>Deskripsi: {{ p.deskripsi_produk }}</p>
+                <button class="tambah-ke-keranjang" data-id="{{ p.id }}">Tambahkan ke Keranjang</button>
+            </li>
+        {% empty %}
+            <li>Tidak ada produk.</li>
         {% endfor %}
-    {% else %}
-        <p>Tidak ada produk</p>
-    {% endif %}
-
     </ul>
+
 </body>
 </html>

@@ -4,7 +4,7 @@ from django.urls import path,include
 from allauth.account.views import LoginView, SignupView, LogoutView, account_inactive
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
-from Produk.views import HomeProduk, CheckoutView, KonfirmasiView, tambah_ke_keranjang, keranjang_belanja
+from Produk.views import HomeProduk, CheckoutView, KonfirmasiView, TambahProdukKeKeranjang, KeranjangBelanja, update_keranjang, hapus_dari_keranjang 
 
 
 
@@ -22,8 +22,10 @@ urlpatterns = [
     path('Produk/', HomeProduk.as_view(), name='HomeProduk'),
     path('checkout/<int:produk_id>/', CheckoutView.as_view(), name='checkout'),
     path('konfirmasi/<int:pengiriman_id>/', KonfirmasiView.as_view(), name='konfirmasi'),
-    path('tambah_ke_keranjang/', tambah_ke_keranjang, name='tambah_ke_keranjang'),
-    path('keranjang_belanja/', keranjang_belanja, name='keranjang_belanja'),
+    path('tambah_ke_keranjang/', TambahProdukKeKeranjang.as_view(), name='tambah_ke_keranjang'),
+    path('keranjang_belanja/', KeranjangBelanja.as_view(), name='keranjang_belanja'),
+    path('update_keranjang/', update_keranjang, name='update_keranjang'),
+    path('hapus_dari_keranjang/', hapus_dari_keranjang, name='hapus_dari_keranjang'),
 
 
 

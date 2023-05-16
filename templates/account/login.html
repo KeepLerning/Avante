@@ -13,26 +13,14 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        
-
-    <h1>Sign In</h1>
-
-
-
-
-    <p>If you have not created an account yet, then please
-    <a href="/accounts/signup/">sign up</a> first.</p>
-
-
-        <form class="login" method="POST" action="/accounts/login/">
-        <input type="hidden" name="csrfmiddlewaretoken" value="VJW12bVbuvmkeJgrPBJ6661NSOL34ptSR5W5wzdZRIml6RGn9DOZ8eIi9WR4gUQf">
-        <p><label for="id_login">E-mail:</label> <input type="email" name="login" placeholder="E-mail address" autocomplete="email" required id="id_login"></p>
-        <p><label for="id_password">Password:</label> <input type="password" name="password" placeholder="Password" autocomplete="current-password" required id="id_password"></p>
-        <p><label for="id_remember">Remember Me:</label> <input type="checkbox" name="remember" id="id_remember"></p>
-        
-        <button class="primaryAction" type="submit">Sign In</button>
+            <h1>Login</h1>
+        <form method="post" action="/accounts/login/">
+            <input type="hidden" name="csrfmiddlewaretoken" value="tsdrvL088HdaZByAt9DpW8UrdMapFZUaMbQ50ZtFl7z8yuakjwpU4EEJpFBzxjmV">
+            <p><label for="id_login">E-mail:</label> <input type="email" name="login" placeholder="E-mail address" autocomplete="email" required id="id_login"></p>
+    <p><label for="id_password">Password:</label> <input type="password" name="password" placeholder="Password" autocomplete="current-password" required id="id_password"></p>
+    <p><label for="id_remember">Remember Me:</label> <input type="checkbox" name="remember" id="id_remember"></p>
+            <button type="submit">Login</button>
         </form>
-
         
         <script src="" async defer></script>
     </body>
