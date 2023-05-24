@@ -28,10 +28,10 @@
 
         $('.tambah-ke-keranjang').click(function() {
             var produkId = $(this).data('id');
-            var jumlah = 1; // Ubah sesuai dengan jumlah yang diinginkan
+            var jumlah = 0; // Ubah sesuai dengan jumlah yang diinginkan
             var csrfToken = getCookie('csrftoken');
 
-            $.ajax({
+            $.ajax({ 
                 type: 'POST',
                 url: '{% url 'tambah_ke_keranjang' %}',
                 data: JSON.stringify({ 'id': produkId, 'jumlah': jumlah }),
@@ -70,6 +70,7 @@
                 <h3>{{ p.nama_produk }}</h3>
                 <p>Harga: {{ p.harga_produk }}</p>
                 <p>Deskripsi: {{ p.deskripsi_produk }}</p>
+                <img src="{{ p.gambar_produk.url }}" alt="{{ p.nama_produk }} Gambar">
                 <button class="tambah-ke-keranjang" data-id="{{ p.id }}">Tambahkan ke Keranjang</button>
             </li>
         {% empty %}

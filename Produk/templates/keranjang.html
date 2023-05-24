@@ -1,121 +1,119 @@
-{% load static %}
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
-</head>
-<body>
-<h1>Keranjang Belanja</h1>
-<h2>Daftar Produk:</h2>
-<ul>
-    {% for produk in daftar_produk %}
-        <li>
+    {% load static %}
+    <!DOCTYPE html>
+    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Keranjang Belanja</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+    <h1>Keranjang Belanja</h1>
+    <h2>Daftar Produk:</h2>
+    <ul>
+        {% for produk in daftar_produk %}
+        <li class="produk-item">
             <h3>{{ produk.nama_produk }}</h3>
-            <p>Harga: {{ produk.harga }}</p>
-            <p>Jumlah: {{ produk.jumlah }}</p>
-            <p>Subtotal: {{ produk.subtotal }}</p>
-            <button class="tambah-qty" data-id="{{ produk.id }}">Tambah</button>
-            <button class="kurang-qty" data-id="{{ produk.id }}">Kurang</button>
-            <button class="hapus-produk" data-id="{{ produk.id }}">Hapus</button>
+            <p>Harga: <span class="harga-produk">{{ produk.harga }}</span></p>
+            <p>Jumlah: <input type="number" class="jumlah-produk" value="{{ produk.jumlah }}"></p>
+            <p>Subtotal: <span class="subtotal-produk">{{ produk.subtotal }}</span></p>
+            <button class="hapus-produk">Hapus</button>
         </li>
-    {% empty %}
+        {% empty %}
         <li>Tidak ada produk di keranjang.</li>
-    {% endfor %}
-</ul>
-<p>Total Harga: {{ total_harga }}</p>
+        {% endfor %}
+    </ul>
+    <p>Total Harga: <span class="total-harga">{{ total_harga }}</span></p>
 
-<button onclick="location.href='{% url 'HomeProduk' %}'">Kembali membeli produk</button>
+    <button onclick="location.href='{% url 'HomeProduk' %}'">Kembali membeli produk</button>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
     $(document).ready(function() {
-        // Get the CSRF token from the cookie
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
+    // Fungsi untuk mengupdate subtotal dan total harga
+    function updateSubtotalAndTotal() {
+        var subtotal = 0;
 
-        // Function to update the quantity of a product in the shopping cart
-        function updateQuantity(produkId, jumlah) {
-            var csrfToken = getCookie('csrftoken');
+        // Menghitung subtotal untuk setiap item produk
+        $('.produk-item').each(function() {
+        var jumlah = parseInt($(this).find('.jumlah-produk').val());
+        var harga = parseInt($(this).find('.harga-produk').text());
+        var subtotalItem = jumlah * harga;
 
-            // Buat objek data yang akan dikirimkan
-            var data = {
-                'id': produkId,
-                'jumlah': jumlah,
-                'csrfmiddlewaretoken': csrfToken // Sertakan token CSRF dalam data
-            };
+        $(this).find('.subtotal-produk').text(subtotalItem);
 
-            $.ajax({
-                type: 'POST',
-                url: '/update_keranjang/', // Ubah URL sesuai dengan URL yang telah didefinisikan pada URL pattern
-                data: data, // Gunakan objek data yang telah dibuat
-                success: function() {
-                    // Refresh halaman keranjang belanja
-                    window.location.reload();
-                },
-                error: function(xhr, status, error) {alert('Terjadi kesalahan: ' + error);
-            }
+        subtotal += subtotalItem;
         });
+
+        // Memperbarui total harga
+        $('.total-harga').text(subtotal);
     }
 
     // Event handler untuk tombol tambah
     $('.tambah-qty').click(function() {
-        var produkId = $(this).data('id');
-        updateQuantity(produkId, 1);
+        var inputJumlah = $(this).siblings('.jumlah-produk');
+        var jumlah = parseInt(inputJumlah.val());
+        inputJumlah.val(jumlah + 1);
+
+        updateSubtotalAndTotal();
     });
 
     // Event handler untuk tombol kurang
     $('.kurang-qty').click(function() {
-        var produkId = $(this).data('id');
-        updateQuantity(produkId, -1);
+        var inputJumlah = $(this).siblings('.jumlah-produk');
+        var jumlah = parseInt(inputJumlah.val());
+
+        if (jumlah > 1) {
+        inputJumlah.val(jumlah - 1);
+        updateSubtotalAndTotal();
+        }
     });
 
-    // Event handler untuk tombol hapus
+    // Event handler untuk perubahan jumlah produk
+    $('.jumlah-produk').change(function() {
+        updateSubtotalAndTotal();
+    });
+    });
+    
+        // Event handler untuk tombol hapus
     $('.hapus-produk').click(function() {
-        var produkId = $(this).data('id');
-        var csrfToken = getCookie('csrftoken');
+    var produkItem = $(this).closest('.produk-item');
+    produkItem.remove();
 
-        // Buat objek data yang akan dikirimkan
-        var data = {
-            'id': produkId,
-            'csrfmiddlewaretoken': csrfToken // Sertakan token CSRF dalam data
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: '/hapus_dari_keranjang/', // Ubah URL sesuai dengan URL yang telah didefinisikan pada URL pattern
-            data: data, // Gunakan objek data yang telah dibuat
-            success: function() {
-                // Refresh halaman keranjang belanja
-                window.location.reload();
-            },
-            error: function(xhr, status, error) {
-                alert('Terjadi kesalahan: ' + error);
-            }
-        });
+    updateSubtotalAndTotal();
     });
-});
-</script>
-</body>
-</html>
 
+        // Fungsi untuk mengupdate subtotal dan total harga
+    function updateSubtotalAndTotal() {
+    var subtotal = 0;
+
+    // Menghitung subtotal untuk setiap item produk
+    $('.produk-item').each(function() {
+        var jumlah = parseInt($(this).find('.jumlah-produk').val());
+        var harga = parseInt($(this).find('.harga-produk').text());
+        var subtotalItem = jumlah * harga;
+
+        $(this).find('.subtotal-produk').text(subtotalItem);
+
+        subtotal += subtotalItem;
+    });
+
+    // Memperbarui total harga
+    $('.total-harga').text(subtotal);
+
+    // Cek apakah subtotal > 0
+    if (subtotal === 0) {
+        // Redirect ke halaman produk
+        window.location.href = '{% url 'HomeProduk' %}';
+    }
+    }
+
+    </script>
+    </body>
+    </html>

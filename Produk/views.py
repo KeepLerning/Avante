@@ -6,15 +6,15 @@ from .models import KategoriProduk, Produk
 from Pengiriman.forms import FormPengiriman
 from Pengiriman.models import Pengiriman
 from django.http import JsonResponse
-
+from django.contrib.auth.decorators import login_required
 
 class HomeProduk(TemplateView):
     template_name = 'Produk.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['kategori_produk'] = KategoriProduk.objects.filter(id_kategori=0).values_list('nama_kategori', flat=True)
-        context['produk'] = Produk.objects.filter(pk__in=[1, 4, 3]).values('harga_produk', 'deskripsi_produk', 'nama_produk', 'id')
+        context['kategori_produk'] = KategoriProduk.objects.filter(id_kategori=2).values_list('nama_kategori', flat=True)
+        context['produk'] = Produk.objects.filter(pk__in=[1, 4, 3, 5]).values('harga_produk', 'deskripsi_produk', 'nama_produk', 'id', 'gambar_produk')
         return context
 
 class CheckoutView(FormView):
@@ -88,6 +88,7 @@ class KeranjangBelanja(View):
         return render(request, 'keranjang.html', context)
 
 
+
 def update_keranjang(request):
     if request.method == 'POST':
         produk_id = request.POST.get('id')
@@ -106,6 +107,7 @@ def update_keranjang(request):
         return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error'})
+
 
 def hapus_dari_keranjang(request):
     if request.method == 'POST':
