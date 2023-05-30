@@ -1,62 +1,64 @@
-    {% load static %}
-    <!DOCTYPE html>
-    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-    <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Keranjang Belanja</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-    </head>
-    <body>
-    <h1>Keranjang Belanja</h1>
-    <h2>Daftar Produk:</h2>
-    <ul>
-        {% for produk in daftar_produk %}
-        <li class="produk-item">
-            <h3>{{ produk.nama_produk }}</h3>
-            <p>Harga: <span class="harga-produk">{{ produk.harga }}</span></p>
-            <p>Jumlah: <input type="number" class="jumlah-produk" value="{{ produk.jumlah }}"></p>
-            <p>Subtotal: <span class="subtotal-produk">{{ produk.subtotal }}</span></p>
-            <button class="hapus-produk">Hapus</button>
-        </li>
-        {% empty %}
-        <li>Tidak ada produk di keranjang.</li>
-        {% endfor %}
-    </ul>
-    <p>Total Harga: <span class="total-harga">{{ total_harga }}</span></p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Keranjang Belanja</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>Keranjang Belanja</h1>
+<h2>Daftar Produk:</h2>
+<ul>
+    {% for produk in daftar_produk %}
+    <li class="produk-item">
+        <h3>{{ produk.nama_produk }}</h3>
+        <p>Harga: <span class="harga-produk">{{ produk.harga }}</span></p>
+        <p>Jumlah: <input type="number" class="jumlah-produk" value="{{ produk.jumlah }}"></p>
+        <p>Subtotal: <span class="subtotal-produk">{{ produk.subtotal }}</span></p>
+        <button class="hapus-produk">Hapus</button>
+        <button class="tambah-qty">Tambah</button>
+        <button class="kurang-qty">Kurang</button>
+    </li>
+    {% empty %}
+    <li>Tidak ada produk di keranjang.</li>
+    {% endfor %}
+</ul>
+<p>Total Harga: <span class="total-harga">{{ total_harga }}</span></p>
 
-    <button onclick="location.href='{% url 'HomeProduk' %}'">Kembali membeli produk</button>
+<button onclick="location.href='{% url 'HomeProduk' %}'">Kembali membeli produk</button>
+<form id="checkout-form" action="{% url 'checkout' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" id="total-harga-input" name="total_harga" value="{{ total_harga }}">
+    <button type="submit">Checkout</button>
+</form>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function() {
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
     // Fungsi untuk mengupdate subtotal dan total harga
     function updateSubtotalAndTotal() {
         var subtotal = 0;
 
         // Menghitung subtotal untuk setiap item produk
         $('.produk-item').each(function() {
-        var jumlah = parseInt($(this).find('.jumlah-produk').val());
-        var harga = parseInt($(this).find('.harga-produk').text());
-        var subtotalItem = jumlah * harga;
+            var jumlah = parseInt($(this).find('.jumlah-produk').val());
+            var harga = parseInt($(this).find('.harga-produk').text());
+            var subtotalItem = jumlah * harga;
 
-        $(this).find('.subtotal-produk').text(subtotalItem);
+            $(this).find('.subtotal-produk').text(subtotalItem);
 
-        subtotal += subtotalItem;
+            subtotal += subtotalItem;
         });
 
         // Memperbarui total harga
         $('.total-harga').text(subtotal);
+        $('#total-harga-input').val(subtotal);
     }
 
     // Event handler untuk tombol tambah
-    $('.tambah-qty').click(function() {
+    $(document).on('click', '.tambah-qty', function() {
         var inputJumlah = $(this).siblings('.jumlah-produk');
         var jumlah = parseInt(inputJumlah.val());
         inputJumlah.val(jumlah + 1);
@@ -65,32 +67,32 @@
     });
 
     // Event handler untuk tombol kurang
-    $('.kurang-qty').click(function() {
+    $(document).on('click', '.kurang-qty', function() {
         var inputJumlah = $(this).siblings('.jumlah-produk');
         var jumlah = parseInt(inputJumlah.val());
 
         if (jumlah > 1) {
-        inputJumlah.val(jumlah - 1);
-        updateSubtotalAndTotal();
+            inputJumlah.val(jumlah - 1);
+            updateSubtotalAndTotal();
         }
     });
 
     // Event handler untuk perubahan jumlah produk
-    $('.jumlah-produk').change(function() {
+    $(document).on('change', '.jumlah-produk', function() {
         updateSubtotalAndTotal();
     });
-    });
-    
-        // Event handler untuk tombol hapus
-    $('.hapus-produk').click(function() {
-    var produkItem = $(this).closest('.produk-item');
-    produkItem.remove();
 
-    updateSubtotalAndTotal();
-    });
+    // Event handler untuk tombol hapus
+    $(document).on('click', '.hapus-produk', function() {
+        var produkItem = $(this).closest('.produk-item');
+        produkItem.remove();
 
-        // Fungsi untuk mengupdate subtotal dan total harga
-    function updateSubtotalAndTotal() {
+        updateSubtotalAndTotal();
+    });
+});
+
+// Fungsi untuk mengupdate subtotal dan total harga
+function updateSubtotalAndTotal() {
     var subtotal = 0;
 
     // Menghitung subtotal untuk setiap item produk
@@ -106,14 +108,17 @@
 
     // Memperbarui total harga
     $('.total-harga').text(subtotal);
+    $('#total-harga-input').val(subtotal);
+}
 
-    // Cek apakah subtotal > 0
-    if (subtotal === 0) {
-        // Redirect ke halaman produk
-        window.location.href = '{% url 'HomeProduk' %}';
-    }
-    }
+// Event handler untuk perubahan jumlah produk
+$('.jumlah-produk').change(function() {
+    updateSubtotalAndTotal();
+});
 
-    </script>
-    </body>
-    </html>
+// Memanggil fungsi updateSubtotalAndTotal saat halaman dimuat
+updateSubtotalAndTotal();
+
+</script>
+</body>
+</html>

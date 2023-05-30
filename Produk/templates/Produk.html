@@ -70,7 +70,7 @@
                 <h3>{{ p.nama_produk }}</h3>
                 <p>Harga: {{ p.harga_produk }}</p>
                 <p>Deskripsi: {{ p.deskripsi_produk }}</p>
-                <img src="{{ p.gambar_produk.url }}" alt="{{ p.nama_produk }} Gambar">
+                <img src="{{ p.gambar_produk.url }}" alt="{{ p.nama_produk }} Gambar"> 
                 <button class="tambah-ke-keranjang" data-id="{{ p.id }}">Tambahkan ke Keranjang</button>
             </li>
         {% empty %}

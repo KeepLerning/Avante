@@ -20,6 +20,4 @@ class MyAccountAdapter(DefaultAccountAdapter):
         else:
             return '/accounts/login/'
 
-#Produk view
-
 

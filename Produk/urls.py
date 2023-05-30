@@ -1,8 +1,7 @@
 from django.urls import path
-
-from . import views
+from .views import CheckoutView, KonfirmasiView
 
 urlpatterns = [
-    path('',views.HomeProduk),
     
 ]
+

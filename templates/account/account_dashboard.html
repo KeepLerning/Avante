@@ -13,14 +13,21 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
+        <ul class="nav">
             <li class="nav-item">
-    <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
-</li>
+                <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+            </li>
+        </ul>
 
-            <h1>dashboard</h1>
-            <p>welcome</p>
+        <h1>Dashboard</h1>
+        <p>Welcome</p>
+
+        <a href="{% url 'HomeProduk' %}">Produk kami</a>
+
+        <h2>Produk Terbaru:</h2>
+        <ul>
             
-            <a href="{% url 'HomeProduk' %}">Produk kami</a>
+        </ul>
 
         <script src="" async defer></script>
     </body>

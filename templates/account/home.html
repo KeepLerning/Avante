@@ -1,30 +1,500 @@
 {% load static%}
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="{% static "css/styles.css" %}">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Container 3D Effect</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet">
     <style>
-    </style>
-    <body>
-        <h2>Login</h2>
+        body {
+            background-color: white;
+            height: auto;
+            box-sizing: border-box;
+            position: relative;
+            background: url(/static/img/bg-2.png);
+        }
         
+        body::before {
+    content: "";
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background-color: #3da9fc;
+    box-shadow: 0 0 60px 40px #3da9fc;
+    border-radius: 50%;
+    z-index: -1;
+    }
+    
+
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+
+
+        
+.navbar-1-3.navbar-dark .navbar-nav .nav-link {
+    color: #ffffffff;
+    transition: 0.3;
+    animation: nav 2s 1;
+}
+
+@keyframes nav {
+    from {
+        font-size: 0px;
+    }
+
+    to {
+        font-size: 16px;
+    }
+}
+
+.navbar-1-3.navbar-dark .navbar-nav .nav-link :hover {
+    color: #778899;
+    transition: 0.3;
+}
+
+.navbar-1-3 {
+    background: rgba(0, 0, 0, 0);
+    background-size: cover;
+    height: 85px;
+    transition: 0.3s;
+    animation: nav2 3s 1;
+}
+
+@keyframes nav2 {
+    from {
+        height: 0px;
+    }
+
+    to {
+        height: 85px;
+    }
+}
+
+.navbar-1-3 .container img {
+    width:50px;
+    margin-left: -80px;
+    
+    animation: img 3s 1;
+}
+
+@keyframes img {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 50px;
+    }
+} 
+
+.navbar-1-3 .btn-get-started {
+    border-radius: 20px;
+    padding: 12px 30px;
+    font-weight: 500;
+}
+
+.navbar-1-3 .btn-get-started-yellow {
+    background-color: #ffffff;
+    color: #000;
+    width: 100%;
+    transition: 0.3s;
+    animation: str 3s 1;
+}
+
+@keyframes str {
+    from {
+        width: 0%;
+        background-color: #000;
+        padding: 0px 0px;
+    }
+
+    to {
+        width: 100%;
+        background-color: #ffffff;
+        padding: 12px 30px;
+    }
+}
+
+.navbar-1-3 .btn-get-started-yellow:hover {
+    background-color: #778899;
+    color: #372642;
+    transition: 0.3s;
+}
+
+
+        #container {
+            width: auto;
+            height: 100vh;
+            position: relative;
+            perspective: 1000px;
+            overflow: hidden;
+            background-color: rgba(0,0,0,0);
+        }
+
+        #container .image {
+            z-index: 1;
+            position: absolute;
+            top: 54%;
+            left: 54%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 600px;
+            background-color:rgba(0,0,0,0);
+            background-position: center;
+            background-size: cover;
+            transition: transform 0.5s;
+        }
+
+        #container:hover .image {
+            transform: translate(-50%, -50%) rotateX(20deg) rotateY(20deg);
+        }
+
+        #container .text1 {
+            font-family: 'Abel', sans-serif;
+            letter-spacing: 15px;
+            position: absolute;
+            top: 240px;
+            left: 80px;
+            color: white;
+            font-size: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #container .text2 {
+            font-family: 'Rowdies', cursive;
+            text-transform: uppercase;
+            position: absolute;
+            top: 230px;
+            left: 50px;
+            color: white;
+            font-size: 110px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        #container .text3 {
+            font-family: 'Rowdies', cursive;
+            text-transform: uppercase;
+            position: absolute;
+            bottom: 70px;
+            right: 300px;
+            letter-spacing: 5px;
+            color: white;
+            font-size: 90px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #container .text4 {
+            font-family: 'Abel', sans-serif;
+            position: absolute;
+            bottom: 70px;
+            right: 285px;
+            letter-spacing: 5px;
+            color: white;
+            font-size: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+
+        .container-2 {
+            background-color: #72757e;
+            background-position: center;
+            background-size: 100% 100%;
+            height: 90vh;
+        }
+
+        .container-2.active {
+        transform: translateX(0);
+        opacity: 1;
+        transition: transform 0.5s, opacity 0.5s;
+        }
+
+        #container.active .image {
+            transform: translate(-50%, -50%) rotateX(20deg) rotateY(20deg);
+        }
+
+        #container .scroll-button {
+        text-color: white;
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color:rgba(0,0,0,0);
+        color: #000000;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        }
+
+        #container .scroll-button:hover {
+        background-color: #eeeeee;
+        }
+
+            @keyframes flyUpAnimation {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(-200px);
+            opacity: 0;
+        }
+        }
+
+        .container1{
+            display: grid;
+            margin-right: 1100px;
+            height: 90vh;
+            background-color:white;
+            border-radius:10px;
+        }
+        .container-2{
+            display: grid;
+            margin-right: 1100px;
+            height: 90vh;
+            background-color:white;
+            border-radius:10px;
+            
+        }
+        .container-3{
+            display: grid;
+            margin-right: 1100px;
+            height: 90vh;
+            background-color:white;
+            border-radius:10px;
+        }
+        .container-4{
+            display: grid;
+            margin-right: 1100px;
+            height: 90vh;
+            background-color:white;
+            border-radius:10px;
+        }
+        .container-5{
+            display: grid;
+            margin-right: 1100px;
+            height: 90vh;
+            background-color:white;
+            border-radius:10px;
+        }
+        .container-6{
+            display: grid;
+            margin-right: 1100px;
+            height: 90vh;
+            background-color:white;
+            border-radius:10px;
+        }
+        </style>
+</head>
+<body>
+    <nav class="navbar-1-3 fixed-top navbar navbar-expand-lg navbar-dark p-4 px-md-4 mb-3" style="font-family: 'Abel', sans-serif; background: url(/static/img/bg-2.png);">
+        <div class="container">
+            <img src="{% static "img/logo.png"%}" alt="">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link px-md-4 active" aria-current="page" href=""></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link px-md-4" >Elegance</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link px-md-4" >Boldness</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link px-md-4" >Life</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link px-md-4" >Style</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link px-md-4" >Personality</a>
+                </li>
+            </ul>
+            {% comment %} <div class="d-flex">
+                <a class="btn btn-get-started btn-get-started-yellow" href="/admin">Get Started</a>
+            </div> {% endcomment %}
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <img class="image" src="{% static "img/produk.png"%}" alt="HD Image"></img>
+            <p class="text1">Discover the New</p>
+            <p class="text2">AVANTE</p>
+            <p class="text3">ONE</p>
+            <p class="text4">Release Product</p>
+            <button class="scroll-button" onclick="scrollToNextContainer()">Scroll Down</button>
+        </div>
+
+    <div class="container-2">
+        {% comment %} <h2>Login</h2>
         <form class="login-form" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button><a type="submit" class="btn btn-primary" href='accounts/login/'>Login</a></button>
             <a href="{% url 'account_signup' %}">Sign Up</a>
-        </form>
+        </form> {% endcomment %}
+        {% comment %} <div class="container1"></div>
+        <div class="container2"></div>
+        <div class="container3"></div>
+        <div class="container4"></div>
+        <div class="container6"></div> {% endcomment %}
+    </div>
+
+    <script>
+        (function() {
+            var container = document.getElementById("container");
+            var image = document.querySelector("#container .image");
+            var inner = document.getElementById("inner");
+            var mouse = {
+                _x: 0,
+                _y: 0,
+                x: 0,
+                y: 0,
+                updatePosition: function(event) {
+                    var e = event || window.event;
+                    this.x = e.clientX - this._x;
+                    this.y = e.clientY - this._y;
+                },
+                setOrigin: function(e) {
+                    this._x = e.offsetLeft + Math.floor(e.offsetWidth / 2);
+                    this._y = e.offsetTop + Math.floor(e.offsetHeight / 2);
+                },
+                show: function() {
+                    return "(" + this.x + " , " + this.y + ")";
+                }
+            };
+
+            function updateImageTransform() {
+                var rotateX = (mouse.y / container.offsetHeight) * 20 - 10;
+                var rotateY = (mouse.x / container.offsetWidth) * 20 - 10;
+                image.style.transform = "translate(-50%, -50%) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
+            }
+
+            container.addEventListener('mousemove', function(e) {
+                mouse.updatePosition(e);
+                updateImageTransform();
+            });
+
+            container.addEventListener('mouseenter', function(e) {
+                mouse.setOrigin(e.target);
+            });
+        })();
+
+                // Mendapatkan semua container yang akan diberi efek scrolling
+        var containers = document.querySelectorAll('.container-2, #container');
+
+        // Mendefinisikan fungsi untuk memeriksa apakah sebuah elemen sedang terlihat di dalam viewport
+        function isElementInViewport(element) {
+            var rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Mendefinisikan fungsi untuk memeriksa apakah sebuah elemen terlihat secara parsial di dalam viewport
+        function isElementPartiallyInViewport(element) {
+            var rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom >= 0 &&
+                rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+                rect.right >= 0
+            );
+        }
+
+        // Mendefinisikan fungsi untuk menangani efek scrolling
+        function handleScrollingEffects() {
+            containers.forEach(function(container) {
+                if (isElementPartiallyInViewport(container)) {
+                    container.classList.add('active');
+                } else {
+                    container.classList.remove('active');
+                }
+            });
+        }
+
+        // Menambahkan event listener untuk mendeteksi saat pengguna melakukan scroll
+        window.addEventListener('scroll', handleScrollingEffects);
+
+        // Pertama kali, panggil fungsi handleScrollingEffects untuk menentukan posisi awal container
+        handleScrollingEffects();
         
-        <script src="" async defer></script>
-    </body>
+            // Mendapatkan elemen container pertama
+    var container = document.getElementById('container');
+
+    // Mendapatkan elemen container selanjutnya
+    var nextContainer = document.querySelector('.container-2');
+
+    // Fungsi untuk melakukan scroll ke container selanjutnya saat tombol di klik
+    function scrollToNextContainer() {
+        nextContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Menambahkan event listener untuk mendeteksi saat container pertama muncul di dalam viewport
+    window.addEventListener('scroll', function() {
+        var rect = container.getBoundingClientRect();
+        if (rect.top >= 0 && rect.top <= window.innerHeight) {
+            container.classList.add('active');
+        } else {
+            container.classList.remove('active');
+        }
+    });
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+    AOS.init();
+    </script>
+        <script>
+        (function() {
+        var container = document.getElementById("container");
+        var image = document.querySelector("#container .image");
+        var text1 = document.querySelector("#container .text1");
+        var text2 = document.querySelector("#container .text2");
+        var scrollButton = document.getElementById("scroll-button");
+
+        var isScrollButtonClicked = false;
+
+        function handleScrollButtonClick() {
+            isScrollButtonClicked = true;
+            container.classList.add("scroll-clicked");
+            image.classList.add("fly-up-animation");
+            text1.classList.add("fly-up-animation");
+            text2.classList.add("fly-up-animation");
+        }
+
+        scrollButton.addEventListener("click", handleScrollButtonClick);
+
+        window.addEventListener("scroll", function() {
+            if (!isScrollButtonClicked) {
+            var containerBottom = container.getBoundingClientRect().bottom;
+            var windowHeight = window.innerHeight;
+
+            if (containerBottom < windowHeight) {
+                handleScrollButtonClick();
+            }
+            }
+        });
+        })();
+    </script>
+</body>
 </html>

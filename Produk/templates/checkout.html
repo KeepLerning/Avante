@@ -1,35 +1,43 @@
-
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title></title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="">
-	</head>
-	<body>
-		<h2>Checkout</h2>
-	<p>Produk yang dipesan: Naruto seri</p>
-	<p>Harga: Rp 150.00</p>
-	<form method="post">
-		<input type="hidden" name="csrfmiddlewaretoken" value="1OZjvqglK4mLw7LkEeMMr2zTOd3lyYIyXaZnZOy97hmMofbgYgRFtago5l9mKt5V">
-		<p><label for="id_nama_pelanggan">Nama pelanggan:</label> <input type="text" name="nama_pelanggan" class="form-control" maxlength="100" required id="id_nama_pelanggan"></p>
-<p><label for="id_alamat_pengiriman">Alamat pengiriman:</label> <textarea name="alamat_pengiriman" cols="40" rows="10" class="form-control" maxlength="255" required id="id_alamat_pengiriman">
-</textarea></p>
-<p><label for="id_nomor_telepon_pelanggan">Nomor telepon pelanggan:</label> <input type="text" name="nomor_telepon_pelanggan" class="form-control" maxlength="20" required id="id_nomor_telepon_pelanggan"></p>
-<p><label for="id_kota">Kota:</label> <input type="text" name="kota" value="default_kota_value" class="form-control" maxlength="50" required id="id_kota"></p>
-<p><label for="id_provinsi">Provinsi:</label> <input type="text" name="provinsi" value="Provinsi" class="form-control" maxlength="50" required id="id_provinsi"></p>
-<p><label for="id_kode_pos">Kode pos:</label> <input type="text" name="kode_pos" value="00000" class="form-control" maxlength="10" required id="id_kode_pos"></p>
-		<button type="submit">Checkout</button>
-	</form>
-				
-		<script src="" async defer></script>
-	</body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <form method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="3Oq35sXPgyBobtR8CBcBbw2bR1Nh3wdEmx3HAGqmtYXmKmtSsYY6j2Mt3UerVQFp">
+
+        <ul>
+            {% for produk in daftar_produk %}
+            <li>{{ produk.nama_produk }} - {{ produk.harga }} - {{ produk.jumlah }}</li>
+            {% endfor %}
+        </ul>
+        <p>Total Harga: <span class="total-harga">{{ total_harga }}</span></p>
+
+        <ul class="errorlist"><li>This field is required.</li></ul>
+        <p><label for="id_nama_pelanggan">Nama pelanggan:</label> <input type="text" name="nama_pelanggan" class="form-control" maxlength="100" required id="id_nama_pelanggan"></p>
+        <ul class="errorlist"><li>This field is required.</li></ul>
+        <p><label for="id_alamat_pengiriman">Alamat pengiriman:</label> <textarea name="alamat_pengiriman" cols="40" rows="10" class="form-control" maxlength="255" required id="id_alamat_pengiriman"></textarea></p>
+        <ul class="errorlist"><li>This field is required.</li></ul>
+        <p><label for="id_nomor_telepon_pelanggan">Nomor telepon pelanggan:</label> <input type="text" name="nomor_telepon_pelanggan" class="form-control" maxlength="20" required id="id_nomor_telepon_pelanggan"></p>
+        <ul class="errorlist"><li>This field is required.</li></ul>
+        <p><label for="id_kota">Kota:</label> <input type="text" name="kota" class="form-control" maxlength="50" required id="id_kota"></p>
+        <ul class="errorlist"><li>This field is required.</li></ul>
+        <p><label for="id_provinsi">Provinsi:</label> <input type="text" name="provinsi" class="form-control" maxlength="50" required id="id_provinsi"></p>
+        <ul class="errorlist"><li>This field is required.</li></ul>
+        <p><label for="id_kode_pos">Kode pos:</label> <input type="text" name="kode_pos" class="form-control" maxlength="10" required id="id_kode_pos"></p>
+        <button type="submit">Proses Pesanan</button>
+    </form>
+
+    <script src="" async defer></script>
+</body>
 </html>
