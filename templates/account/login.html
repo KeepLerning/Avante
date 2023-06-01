@@ -10,18 +10,59 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     </head>
-    <body>
-            <h1>Login</h1>
-        <form method="post" action="/accounts/login/">
-            <input type="hidden" name="csrfmiddlewaretoken" value="tsdrvL088HdaZByAt9DpW8UrdMapFZUaMbQ50ZtFl7z8yuakjwpU4EEJpFBzxjmV">
-            <p><label for="id_login">E-mail:</label> <input type="email" name="login" placeholder="E-mail address" autocomplete="email" required id="id_login"></p>
-    <p><label for="id_password">Password:</label> <input type="password" name="password" placeholder="Password" autocomplete="current-password" required id="id_password"></p>
-    <p><label for="id_remember">Remember Me:</label> <input type="checkbox" name="remember" id="id_remember"></p>
-            <button type="submit">Login</button>
-        </form>
-        
-        <script src="" async defer></script>
+    <body style="background-color: #222939; font-family: 'Poppins', sans-serif;">
+    <form method="post" action="/accounts/login/">
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card text-white" style="background-color: #1A202C;border-radius: 1rem;">
+                <div class="card-body p-5">
+    
+                <div class="mb-md-5 mt-md-4 pb-5">
+    
+                    <h2 class="fw-bold mb-2 text-center">Login</h2>
+                    <p class="text-white-50 mb-5 text-center">Please enter your login and password!</p>
+    
+                    <div class="form-outline form-white mb-4">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="tsdrvL088HdaZByAt9DpW8UrdMapFZUaMbQ50ZtFl7z8yuakjwpU4EEJpFBzxjmV">
+                        <label for="id_login" class="mb-2 text-start">Email Address :</label>
+                        <input type="email" name="login" placeholder="E-mail Address" autocomplete="email" required id="id_login" class="form-control" style="border-radius: 0.3rem;">    
+                    </div>
+    
+                    <div class="form-outline form-white mb-4">
+                        <label for="id_password" class="mb-2 text-start">Password:</label>
+                        <input type="password" name="password" placeholder="Password" autocomplete="current-password" required id="id_password" class="form-control mb-4" style="border-radius: 0.3rem;">                      
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="id_remember" name="remember">
+                        <label class="form-check-label" for="id_remember">Remember Me</label>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-outline-light btn-lg px-5 text-center" type="submit">Login</button> 
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    </form>    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="" async defer></script>
     </body>
 </html>
