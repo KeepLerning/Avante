@@ -24,7 +24,7 @@
             height: auto;
             box-sizing: border-box;
             position: relative;
-            background: url(/static/img/bg-2.png);
+            background-color: #b8c1ec;
         }
         body::before {
             content: "";
@@ -34,8 +34,8 @@
             transform: translate(-50%, -50%);
             width: 300px;
             height: 300px;
-            background-color: #3da9fc;
-            box-shadow: 0 0 60px 40px #3da9fc;
+            background-color: #b8c1ec;
+            box-shadow: 0 0 60px 40px #b8c1ec;
             border-radius: 50%;
             z-index: -1;
         }
@@ -139,7 +139,7 @@
             position: relative;
             perspective: 1000px;
             overflow: hidden;
-            background-color: rgba(0,0,0,0);
+            background: url(/static/img/bg-2.png)
         }
 
         #container .image {
@@ -206,10 +206,10 @@
         
 
         .container-2 {
-            background-color: #faeee7;
+            background-color:rgba(0,0,0,0);
             background-position: center;
             background-size: 100% 100%;
-            height: 93vh;
+            height: 90vh;
         }
 
         .container-2.active {
@@ -239,7 +239,7 @@
 
         #container .scroll-button:hover {
         background-color:rgba(0,0,0,0);
-        bottom: 30px;
+        bottom: 10px;
         width: 50px;
         }
 
@@ -275,7 +275,59 @@
         transform: translateX(-30%) rotate(-45deg);
         }
 
+        .scroll-button-up {
+        text-color: white;
+        position: absolute;
+        bottom: 1px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 13px 13px;
+        background-color:rgba(0,0,0,0);
+        color:rgba(0,0,0,0);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
         
+        }
+
+        .scroll-button-up:hover {
+        background-color:rgba(0,0,0,0);
+        width: 50px;
+        top: 90%;
+        }
+
+            @keyframes flyUpAnimation {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(-200px);
+            opacity: 0;
+        }
+        }
+        .scroll-button-up::before,
+        .scroll-button-up::after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        width: 30px;
+        height: 2px;
+        background-color: black;
+        transform: translateX(-50%);
+        }
+
+        .scroll-button-up::before {
+        top: 60%;
+        transform: translateX(-100%) rotate(-45deg);
+        }
+
+        .scroll-button-up::after {
+        top: 60%;
+        transform: translateX(-30%) rotate(45deg);
+        }
+
         
 
         .container3 {
@@ -378,7 +430,7 @@
 </style>
 </head>
 <body>
-    <nav class="navbar-1-3 fixed-top navbar navbar-expand-lg navbar-dark p-4 px-md-4 mb-3" style="font-family: 'Abel', sans-serif; background: url(/static/img/bg-6.png);">
+    <nav class="navbar-1-3 fixed-top navbar navbar-expand-lg navbar-dark p-4 px-md-4 mb-3" style="font-family: 'Abel', sans-serif; background: url(/static/img/bg-2.png);">
         <div class="container">
             <img src="{% static "img/logo.png"%}" alt="">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarTogglerDemo02"
@@ -416,10 +468,13 @@
         </div>
     </nav>
         <div id="container">
-            <img class="image" src="{% static "img/produk.png"%}" alt="HD Image"></img>
-            <p class="text1">Discover the New</p>
-            <p class="text2">AVANTE</p>
-            <p class="text3">ONE</p>
+            <img class="image" src="{% static "img/produk3.png"%}" alt="HD Image"></img>
+            <p data-aos="fade-up"
+        data-aos-anchor-placement="center-bottom" class="text1" >Discover the New</p>
+            <p data-aos="fade-up"
+        data-aos-anchor-placement="center-bottom" class="text2">AVANTE</p>
+            <p data-aos="fade-up"
+        data-aos-anchor-placement="center-bottom" class="text3">ONE</p>
             <p class="text4">Release Product</p>
             <button class="scroll-button" onclick="scrollToNextContainer()">push</button>
         </div>
@@ -428,36 +483,49 @@
         <div class="container3">
             <div class="left">
                 <h3  data-aos="fade-down" style="font-family: 'Rajdhani', sans-serif; margin-top:40px;">Login To Shop Our Products</h3>
-                <img data-aos="zoom-in-up" src="{% static "img/produk2.png"%}" alt="" style=" width: 110%; margin-top:90px; margin-left:-29px;">
+                <button class="scroll-button-up" onclick="scrollToPreviousContainer()">Back</button>
+                <img data-aos="fade-up"
+                    data-aos-duration="1300" src="{% static "img/produk4.png"%}" alt="" style=" width: 120%; margin-top:40px; margin-left:-29px;">
             </div>
             <div class="right">
-                <p data-aos="zoom-in" class="text1">FOUR KEY FACTS ABOUT</p>
-                <p data-aos="zoom-in" class="text3"> THE NEW</p>
-                <p data-aos="zoom-in" class="text2">AVANTE ONE</p>
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  class="text1">FOUR KEY FACTS ABOUT</p>
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  class="text3"> THE NEW</p>
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  class="text2">AVANTE ONE</p>
 
-                <img data-aos="zoom-in-up"  src="{% static "img/1.png"%}" alt="" style=" width: 3%; margin-left:90px;">
-                <p data-aos="fade-down" style="margin-left:150px; margin-top:-29px; font-family: 'Rowdies', cursive;">Innovative Design</p>
-                <p data-aos="fade-down" style="margin-left:150px; margin-top:-15px;">Avante brand employs artificial intelligence (AI) to create innovative designs for men's clothing.
+                <img data-aos="fade-up"
+                    data-aos-duration="1300" src="{% static "img/1.png"%}" alt="" style=" width: 3%; margin-left:90px;">
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  style="margin-left:150px; margin-top:-29px; font-family: 'Rowdies', cursive;">Innovative Design</p>
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  style="margin-left:150px; margin-top:-15px; font-family: 'Rajdhani', sans-serif; font-size:17px;">Avante brand employs artificial intelligence (AI) to create innovative designs for men's clothing.
                     <br>AI is used to generate unique patterns and motifs, combining unconventional design elements and imbuing a futuristic touch to their products.</br></p>
                 
-                <img data-aos="zoom-in-up"  src="{% static "img/2.png"%}" alt="" style=" width: 3%; margin-left:90px;">
-                <p data-aos="fade-down" style="margin-left:150px; margin-top:-29px; font-family: 'Rowdies', cursive;">Enhanced Personalization</p>
-                <p data-aos="fade-down" style="margin-left:150px; margin-top:-15px;"> With the aid of AI, Avante is able to deliver improved personalization experiences to customers.
+                <img data-aos="fade-up"
+                    data-aos-duration="1300" src="{% static "img/2.png"%}" alt="" style=" width: 3%; margin-left:90px;">
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  style="margin-left:150px; margin-top:-29px; font-family: 'Rowdies', cursive;">Enhanced Personalization</p>
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  style="margin-left:150px; margin-top:-15px; font-family: 'Rajdhani', sans-serif; font-size:17px;"> With the aid of AI, Avante is able to deliver improved personalization experiences to customers.
                     <br>AI can analyze customer preferences and data to generate designs that align with individual tastes and styles,allowing each customer to have a unique garment.</br></p>
 
-                <img data-aos="zoom-in-up"  src="{% static "img/3.png"%}" alt="" style=" width: 3%; margin-left:90px;">
-                <p data-aos="fade-down" style="margin-left:150px; margin-top:-29px; font-family: 'Rowdies', cursive;">Streamlined Production Efficiency</p>
-                <p data-aos="fade-down" style="margin-left:150px; margin-top:-15px;">The utilization of AI in creating graphics for their garments enables Avante to achieve greater production efficiency.
+                <img data-aos="fade-up"
+                    data-aos-duration="1300" src="{% static "img/3.png"%}" alt="" style=" width: 3%; margin-left:90px;">
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  style="margin-left:150px; margin-top:-29px; font-family: 'Rowdies', cursive; ">Streamlined Production Efficiency</p>
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  style="margin-left:150px; margin-top:-15px; font-family: 'Rajdhani', sans-serif; font-size:17px;">The utilization of AI in creating graphics for their garments enables Avante to achieve greater production efficiency.
                     <br></br></p>
 
-                <img data-aos="zoom-in-up" src="{% static "img/4.png"%}" alt="" style=" width: 3%; margin-left:90px;">
-                <p data-aos="fade-down" style="margin-left:150px; margin-top:-29px; font-family: 'Rowdies', cursive;">Technological Integration</p>
-                <p data-aos="fade-down" style="margin-left:150px; margin-top:-15px;"> Avante is committed to integrating AI technology throughout its brand.
+                <img data-aos="fade-up"
+                    data-aos-duration="1300"src="{% static "img/4.png"%}" alt="" style=" width: 3%; margin-left:90px;">
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  style="margin-left:150px; margin-top:-29px; font-family: 'Rowdies', cursive; ">Technological Integration</p>
+                <p data-aos="fade-up"
+                    data-aos-duration="1300"  style="margin-left:150px; margin-top:-15px; font-family: 'Rajdhani', sans-serif; font-size:17px;"> Avante is committed to integrating AI technology throughout its brand.
                     <br>In addition to graphics on their garments, AI can be utilized to provide customers with interactive and personalized shopping experiences, such as visual search features or product recommendations based on user preferences.</br></p>
-
-
-
-
             </div>
         </div>
     </div>
@@ -465,6 +533,7 @@
     </div>
 
     <script>
+        
         (function() {
             var container = document.getElementById("container");
             var image = document.querySelector("#container .image");
@@ -504,68 +573,140 @@
             });
         })();
 
-                // Mendapatkan semua container yang akan diberi efek scrolling
+                // Mendefinisikan variabel containers dan previousContainer
         var containers = document.querySelectorAll('.container-2, #container');
+        var previousContainer = null;
 
-        // Mendefinisikan fungsi untuk memeriksa apakah sebuah elemen sedang terlihat di dalam viewport
+        // Mendefinisikan fungsi isElementInViewport
         function isElementInViewport(element) {
-            var rect = element.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
+        var rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
         }
 
-        // Mendefinisikan fungsi untuk memeriksa apakah sebuah elemen terlihat secara parsial di dalam viewport
+        // Mendefinisikan fungsi isElementPartiallyInViewport
         function isElementPartiallyInViewport(element) {
-            var rect = element.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.bottom >= 0 &&
-                rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
-                rect.right >= 0
-            );
+        var rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0 &&
+            rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+            rect.right >= 0
+        );
         }
 
-        // Mendefinisikan fungsi untuk menangani efek scrolling
+        // Mendefinisikan fungsi handleScrollingEffects
         function handleScrollingEffects() {
-            containers.forEach(function(container) {
-                if (isElementPartiallyInViewport(container)) {
-                    container.classList.add('active');
-                } else {
-                    container.classList.remove('active');
-                }
-            });
-        }
-
-        // Menambahkan event listener untuk mendeteksi saat pengguna melakukan scroll
-        window.addEventListener('scroll', handleScrollingEffects);
-
-        // Pertama kali, panggil fungsi handleScrollingEffects untuk menentukan posisi awal container
-        handleScrollingEffects();
-        
-            // Mendapatkan elemen container pertama
-    var container = document.getElementById('container');
-
-    // Mendapatkan elemen container selanjutnya
-    var nextContainer = document.querySelector('.container-2');
-
-    // Fungsi untuk melakukan scroll ke container selanjutnya saat tombol di klik
-    function scrollToNextContainer() {
-        nextContainer.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Menambahkan event listener untuk mendeteksi saat container pertama muncul di dalam viewport
-    window.addEventListener('scroll', function() {
-        var rect = container.getBoundingClientRect();
-        if (rect.top >= 0 && rect.top <= window.innerHeight) {
+        containers.forEach(function(container) {
+            if (isElementPartiallyInViewport(container)) {
             container.classList.add('active');
-        } else {
+            previousContainer = container;
+            } else {
             container.classList.remove('active');
+            if (previousContainer === container) {
+                previousContainer = null;
+            }
+            }
+        });
         }
-    });
+
+        // Mendefinisikan fungsi detectScrollDirection
+        function detectScrollDirection(event) {
+        var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.deltaY || -event.detail)));
+        return delta > 0 ? 'up' : 'down';
+        }
+
+        // Menambahkan event listener untuk mendeteksi scroll dan memanggil fungsi handleScrollingEffects
+        window.addEventListener('scroll', function(event) {
+        var scrollDirection = detectScrollDirection(event);
+        if (scrollDirection === 'up' && previousContainer !== null) {
+            previousContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        handleScrollingEffects();
+        });
+
+        // Fungsi untuk melakukan scroll ke container selanjutnya saat tombol diklik
+        function scrollToNextContainer() {
+        var nextContainer = document.querySelector('.container-2');
+        nextContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Memanggil fungsi handleScrollingEffects untuk menentukan posisi awal container
+        handleScrollingEffects();
+
+
+        // Mendefinisikan variabel containers dan previousContainer
+    var containers = document.querySelectorAll('.container-2, #container');
+    var previousContainer = null;
+
+        // Mendefinisikan fungsi isElementInViewport
+        function isElementInViewport(element) {
+        var rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+        }
+
+        // Mendefinisikan fungsi isElementPartiallyInViewport
+        function isElementPartiallyInViewport(element) {
+        var rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0 &&
+            rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+            rect.right >= 0
+        );
+        }
+
+        // Mendefinisikan fungsi handleScrollingEffects
+        function handleScrollingEffects() {
+        containers.forEach(function(container) {
+            if (isElementPartiallyInViewport(container)) {
+            container.classList.add('active');
+            previousContainer = container;
+            } else {
+            container.classList.remove('active');
+            if (previousContainer === container) {
+                previousContainer = null;
+            }
+            }
+        });
+        }
+
+        // Mendefinisikan fungsi detectScrollDirection
+        function detectScrollDirection(event) {
+        var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.deltaY || -event.detail)));
+        return delta > 0 ? 'up' : 'down';
+        }
+
+        // Menambahkan event listener untuk mendeteksi scroll dan memanggil fungsi handleScrollingEffects
+        window.addEventListener('scroll', function(event) {
+        var scrollDirection = detectScrollDirection(event);
+        if (scrollDirection === 'up' && previousContainer !== null) {
+            previousContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        handleScrollingEffects();
+        });
+
+        // Fungsi untuk melakukan scroll ke container sebelumnya saat tombol diklik
+        function scrollToPreviousContainer() {
+        var containersArray = Array.from(containers);
+        var currentIndex = containersArray.indexOf(previousContainer);
+        if (currentIndex > 0) {
+            var previousIndex = currentIndex - 1;
+            containersArray[previousIndex].scrollIntoView({ behavior: 'smooth' });
+        }
+        }
+
+    // Memanggil fungsi handleScrollingEffects untuk menentukan posisi awal container
+    handleScrollingEffects();
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -603,5 +744,6 @@
         });
         })();
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 </html>
